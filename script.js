@@ -11,7 +11,10 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements
+  // Video & Preloader Elements
   const bgVideo = document.getElementById('bgVideo');
+  const videoPreloader = document.getElementById('videoPreloader');
+
   // Contact Modal Elements
   const contactModal = document.getElementById('contactModal');
   const heroContactBtn = document.getElementById('heroContactBtn');
@@ -30,25 +33,81 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeDrawerOverlay = document.getElementById('closeDrawerOverlay');
 
   /* ==========================================================================
-     1. Local Background Video Loader & Autoplay
+     1. Local Background Video Loader & Preloader Dismissal
      ========================================================================== */
-  function initSmartVideoLoading() {
+  let preloaderDismissed = false;
+
+  function dismissPreloader() {
+    if (preloaderDismissed) return;
+    preloaderDismissed = true;
+
+    // Smoothly reveal the video
     if (bgVideo) {
-      bgVideo.preload = 'auto';
-      
-      // Ensure seamless loop without any frame drop or gap
-      bgVideo.addEventListener('ended', () => {
-        bgVideo.currentTime = 0;
-        bgVideo.play();
-      });
-      
-      const playPromise = bgVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.log('Video autoplay deferred by browser policy:', err);
-        });
-      }
+      bgVideo.classList.add('is-loaded');
     }
+
+    // Fade out preloader overlay
+    if (videoPreloader) {
+      videoPreloader.classList.add('loaded');
+      setTimeout(() => {
+        videoPreloader.style.display = 'none';
+      }, 850);
+    }
+  }
+
+  function initSmartVideoLoading() {
+    if (!bgVideo) {
+      dismissPreloader();
+      return;
+    }
+
+    bgVideo.preload = 'auto';
+
+    // Check if the video is already loaded/cached in browser memory
+    if (bgVideo.readyState >= 3) {
+      dismissPreloader();
+    }
+
+    // Trigger fade as soon as the first frame actually starts playing
+    bgVideo.addEventListener('playing', () => {
+      dismissPreloader();
+    });
+
+    // Trigger when enough video is buffered
+    bgVideo.addEventListener('canplay', () => {
+      dismissPreloader();
+    });
+
+    // Ensure seamless loop without any frame drop or gap
+    bgVideo.addEventListener('ended', () => {
+      bgVideo.currentTime = 0;
+      bgVideo.play();
+    });
+
+    // Video error fallback (in case video fails or cannot load)
+    bgVideo.addEventListener('error', () => {
+      console.warn('Video failed to load, falling back to gradient background.');
+      dismissPreloader();
+    });
+
+    // Request autoplay
+    const playPromise = bgVideo.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          dismissPreloader();
+        })
+        .catch((err) => {
+          console.log('Video autoplay deferred by browser policy:', err);
+          // If browser blocks autoplay, don't leave user stuck on loader
+          dismissPreloader();
+        });
+    }
+
+    // Safety timeout: dismiss after 3.5s so slow connections aren't locked out
+    setTimeout(() => {
+      dismissPreloader();
+    }, 3500);
   }
 
   initSmartVideoLoading();
