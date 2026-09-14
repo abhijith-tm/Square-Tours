@@ -562,13 +562,195 @@ button {
   animation: slideDrawer 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.drawer-empty-state {
-  min-height: 280px;
-  border-radius: 16px;
-  border: 1.5px dashed rgba(15, 23, 27, 0.15);
-  background: rgba(255, 255, 255, 0.35);
-  margin-top: 1.5rem;
-  backdrop-filter: blur(8px);
+/* Drawer Body & PDF Brochure Card */
+.drawer-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pdf-brochure-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f6fafc 100%);
+  border: 1px solid rgba(15, 23, 27, 0.12);
+  border-radius: 18px;
+  padding: 1.4rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 27, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.pdf-brochure-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #dc2626 0%, #ea580c 50%, #0f171b 100%);
+}
+
+.pdf-card-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.pdf-format-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pdf-size-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(15, 23, 27, 0.06);
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.pdf-card-title {
+  font-family: var(--font-main);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-title);
+  line-height: 1.25;
+}
+
+.pdf-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.pdf-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.pdf-download-btn {
+  justify-content: center;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.88rem;
+  width: 100%;
+}
+
+.pdf-view-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-fast);
+}
+
+.pdf-view-link:hover {
+  color: var(--text-title);
+  background: rgba(15, 23, 27, 0.05);
+}
+
+/* Curated Package Capsules inside Drawer */
+.drawer-packages-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.section-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-title);
+}
+
+.package-capsule {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 27, 0.09);
+  border-radius: 14px;
+  padding: 0.95rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 27, 0.04);
+  transition: all var(--transition-fast);
+}
+
+.package-capsule:hover {
+  border-color: rgba(15, 23, 27, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(15, 23, 27, 0.08);
+}
+
+.capsule-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.capsule-duration {
+  font-family: var(--font-main);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.capsule-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #0f171b;
+  background: rgba(15, 23, 27, 0.07);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.capsule-destinations {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.drawer-contact-strip {
+  background: rgba(37, 211, 102, 0.08);
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.drawer-contact-strip p {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-body);
+}
+
+.drawer-wa-btn {
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  font-size: 0.84rem;
 }
 
 .drawer-header {
