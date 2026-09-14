@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
-  if (heroContactBtn) heroContactBtn.addEventListener('click', () => openContactModal());
   if (closeContactBtn) closeContactBtn.addEventListener('click', closeContactModal);
   if (closeModalOverlay) closeModalOverlay.addEventListener('click', closeContactModal);
 
